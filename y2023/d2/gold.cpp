@@ -1,21 +1,18 @@
 #include <aoc.hpp>
 
-struct Ball
-{
+struct Ball {
     ll count;
     string color;
 };
 
-struct Game
-{
+struct Game {
     ll id;
     vector<vector<struct Ball>> rounds;
 };
 
 vector<struct Game> games;
 
-void parse(string s, ll li)
-{
+void parse(string s, ll li) {
     struct Game g;
     struct Ball b;
 
@@ -24,13 +21,11 @@ void parse(string s, ll li)
 
     auto p2 = split(p1[1], "; ");
 
-    for(const auto &x : p2)
-    {
+    for(const auto &x : p2) {
         g.rounds.push_back({});
         auto p3 = split(x, ", ");
 
-        for(const auto &y : p3)
-        {
+        for(const auto &y : p3) {
             auto p4 = split(y);
 
             b.count = stoi(p4[0]);
@@ -43,8 +38,7 @@ void parse(string s, ll li)
     games.push_back(g);
 }
 
-void master()
-{
+void master() {
     ans = accumulate(all(games), 0, [](auto a, auto b) {
         ll mr, mg, mb;
         mr = mg = mb = 0;

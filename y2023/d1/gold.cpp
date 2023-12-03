@@ -2,13 +2,11 @@
 
 vector<string> lines;
 
-void parse(string s, ll li)
-{
+void parse(string s, ll li) {
     lines.push_back(s);
 }
 
-void master()
-{
+void master() {
     unordered_map<string, string> remap;
 
     remap["one"] = "o1e";
