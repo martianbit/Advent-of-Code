@@ -32,7 +32,7 @@ void master() {
                 ny = i + D8[k][1];
 
                 ok = (nx >= 0 &&
-                      nx < lines[0].size() &&
+                      nx < x.size() &&
                       ny >= 0 &&
                       ny < lines.size() &&
                       lines[ny][nx] != '.' && !isdigit(lines[ny][nx]));
