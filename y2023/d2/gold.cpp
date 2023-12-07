@@ -12,7 +12,7 @@ struct Game {
 
 vector<struct Game> games;
 
-void parse(string s, ll li) {
+void parse(string s, stringstream &ss, ll li) {
     struct Game g;
     struct Ball b;
 

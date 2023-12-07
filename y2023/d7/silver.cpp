@@ -25,20 +25,22 @@ void master() {
         transform(all(counts), back_inserter(N), [](auto a) { return a.second; });
         sort(all(N), greater());
 
-        if(N.size() == 1)
+        if(N == vector<ll>{ 5 })
             type = 6;
-        else if(N.size() == 2 && N[0] == 4)
+        else if(N == vector<ll>{ 4, 1 })
             type = 5;
-        else if(N.size() == 2 && N[0] == 3)
+        else if(N == vector<ll>{ 3, 2 })
             type = 4;
-        else if(N.size() == 3 && N[0] == 3)
+        else if(N == vector<ll>{ 3, 1, 1 })
             type = 3;
-        else if(N.size() == 3 && N[0] == 2)
+        else if(N == vector<ll>{ 2, 2, 1 })
             type = 2;
-        else if(N.size() == 4)
+        else if(N == vector<ll>{ 2, 1, 1, 1 })
             type = 1;
-        else
+        else if(N == vector<ll>{ 1, 1, 1, 1, 1 })
             type = 0;
+        else
+            exit(1);
 
         types[type].push_back(x.first);
     }

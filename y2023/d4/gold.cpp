@@ -8,11 +8,10 @@ void parse(string s, stringstream &ss, ll li) {
     cards.emplace_back();
 
     for(ll i = 2, j = 0; i < p1.size(); i++) {
-        if(p1[i] == "|") {
+        if(p1[i] == "|")
             j++;
-            continue;
-        }
-        cards.back()[j].insert(stoll(p1[i]));
+        else
+            cards.back()[j].insert(stoll(p1[i]));
     }
 }
 

@@ -2,7 +2,7 @@
 
 vector<string> lines;
 
-void parse(string s, ll li) {
+void parse(string s, stringstream &ss, ll li) {
     lines.push_back(s);
 }
 
