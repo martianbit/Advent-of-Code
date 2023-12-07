@@ -15,7 +15,7 @@ using namespace std;
 using namespace fmt;
 
 typedef long long ll;
-typedef vector<vector<ll*>> Graph; // 0: node; 1: weight
+typedef vector<vector<array<ll, 2>>> Graph; // 0: node; 1: weight
 
 const ll INF = ~(1LL << 63);
 const ll D4[][2] {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
@@ -58,19 +58,12 @@ string replace_all(string in_str, string what, string with) {
 }
 
 ll dijkstra(vector<ll> sis, vector<ll> eis, Graph g) {
-    bool *vis;
-    ll i, cn, nd, sd, *dist;
-
-    dist = (ll*) malloc(g.size() * sizeof(ll));
-    vis = (bool*) malloc(g.size());
+    ll i, cn, nd;
+    vector<bool> vis(g.size(), false);
+    vector<ll> dist(g.size(), INF);
 
     auto cmp = [dist](ll a, ll b) { return dist[a] > dist[b]; };
     priority_queue<ll, vector<ll>, decltype(cmp)> q(cmp);
-
-    for(i = 0; i < g.size(); i++) {
-        dist[i] = INF;
-        vis[i] = false;
-    }
 
     for(i = 0; i < sis.size(); i++) {
         dist[sis[i]] = 0;
@@ -97,12 +90,7 @@ ll dijkstra(vector<ll> sis, vector<ll> eis, Graph g) {
         }
     }
 
-    sd = INF;
-
-    for(i = 0; i < eis.size(); i++)
-        sd = min(dist[eis[i]], sd);
-
-    return sd;
+    return *min_element(all(eis), [&](auto a, auto b) { return dist[a] < dist[b]; });
 }
 
 int main() {
