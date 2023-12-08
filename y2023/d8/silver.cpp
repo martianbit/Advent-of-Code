@@ -1,0 +1,25 @@
+#include <aoc.hpp>
+
+string I;
+unordered_map<string, array<string, 2>> net;
+
+void parse(string s, stringstream &ss, ll li) {
+    switch(li) {
+        case 0:
+            I = s;
+            break;
+        case 1:
+            break;
+        default:
+            auto p1 = split(s);
+            net[p1[0]] = { p1[2].substr(1, 3), p1[3].substr(0, 3) };
+    }
+}
+
+void master() {
+    string node = "AAA";
+
+    while(node != "ZZZ")
+        node = net[node][I[ans++ % I.size()] == 'R'];
+}
+
