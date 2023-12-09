@@ -39,7 +39,7 @@ void parse(string s, stringstream &ss, ll li) {
 }
 
 void master() {
-    ans = accumulate(all(games), 0, [](auto a, auto b) {
+    ans = accumulate(all(games), 0LL, [](auto a, auto b) {
         ll mr, mg, mb;
         mr = mg = mb = 0;
 

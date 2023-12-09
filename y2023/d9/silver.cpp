@@ -18,7 +18,7 @@ void master() {
                 diffs.back().push_back((*(diffs.end() - 2))[i] - (*(diffs.end() - 2))[i - 1]);
         }
 
-        ans += accumulate(all(diffs), 0, [](auto a, auto b) { return a + b.back(); });
+        ans += accumulate(all(diffs), 0LL, [](auto a, auto b) { return a + b.back(); });
     }
 }
 

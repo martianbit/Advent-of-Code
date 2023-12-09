@@ -41,8 +41,8 @@ void master() {
         }
     }
 
-    ans = accumulate(all(adj), 0, [](auto a, auto b) {
-        return a + ((b.second.size() == 2) ? reduce(all(b.second), 1, multiplies()) : 0);
+    ans = accumulate(all(adj), 0LL, [](auto a, auto b) {
+        return a + ((b.second.size() == 2) ? reduce(all(b.second), 1LL, multiplies()) : 0);
     });
 }
 
