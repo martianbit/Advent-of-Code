@@ -21,7 +21,7 @@ void master() {
 
     loop(lines, i, x) {
         for(const auto &y : remap)
-            x = replace_all(x, y.first, y.second);
+            x = replace(x, y.first, y.second);
 
         ans += 10 * (*find_if(all(x), ::isdigit) - '0') + *find_if(rall(x), ::isdigit) - '0';
     }

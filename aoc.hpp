@@ -17,11 +17,20 @@ using namespace fmt;
 typedef long long ll;
 typedef vector<vector<array<ll, 2>>> Graph; // 0: node; 1: weight
 
-const ll INF = ~(1LL << 63);
-const ll D4[][2] {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-const ll D5[][2] {{-1, 0}, {0, -1}, {0, 0}, {0, 1}, {1, 0}};
-const ll D8[][2] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-const ll D9[][2] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+typedef union {
+    ll key;
+    struct {
+        int x;
+        int y;
+    };
+} Point;
+
+const ll INF = (1LL << 62);
+
+vector<array<ll, 2>> D4 = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+vector<array<ll, 2>> D5 = {{-1, 0}, {0, -1}, {0, 0}, {0, 1}, {1, 0}};
+vector<array<ll, 2>> D8 = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+vector<array<ll, 2>> D9 = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
 ll ans;
 string sans;
@@ -40,7 +49,7 @@ vector<string> split(string in_str, string at = " ") {
     return result;
 }
 
-string replace_all(string in_str, string what, string with) {
+string replace(string in_str, string what, string with) {
     ll fi;
 
     fi = -1;
@@ -57,45 +66,27 @@ string replace_all(string in_str, string what, string with) {
     return in_str;
 }
 
-ll dijkstra(vector<ll> sis, vector<ll> eis, Graph g) {
-    ll i, cn, nd;
-    vector<bool> vis(g.size(), false);
-    vector<ll> dist(g.size(), INF);
+template<typename T>
+void flood_fill(ll x, ll y, T with, vector<T> what, bool is_whitelist, vector<vector<T>> &grid, vector<array<ll, 2>> &D) {
+    if(x < 0 || x >= grid[y].size() || y < 0 || y >= grid.size())
+        return;
 
-    auto cmp = [dist](ll a, ll b) { return dist[a] > dist[b]; };
-    priority_queue<ll, vector<ll>, decltype(cmp)> q(cmp);
+    auto found = find(all(what), grid[y][x]);
 
-    for(i = 0; i < sis.size(); i++) {
-        dist[sis[i]] = 0;
-        vis[sis[i]] = true;
+    if((is_whitelist && found == what.end()) || (!is_whitelist && found != what.end()))
+        return;
 
-        q.push(sis[i]);
-    }
+    grid[y][x] = with;
 
-    while(!q.empty()) {
-        cn = q.top();
-        q.pop();
-
-        for(i = 0; i < g[cn].size(); i++) {
-            nd = dist[cn] + g[cn][i][1];
-
-            if(nd < dist[g[cn][i][0]]) {
-                dist[g[cn][i][0]] = nd;
-
-                if(!vis[g[cn][i][0]]) {
-                    q.push(g[cn][i][0]);
-                    vis[g[cn][i][0]] = true;
-                }
-            }
-        }
-    }
-
-    return *min_element(all(eis), [&](auto a, auto b) { return dist[a] < dist[b]; });
+    for(ll i = 0; i < D.size(); i++)
+        flood_fill(x + D[i][0], y + D[i][1], with, what, is_whitelist, grid, D);
 }
 
 int main() {
     ll li;
     string s;
+
+    cout << unitbuf;
 
     li = 0;
 
